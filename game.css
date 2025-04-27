@@ -1,0 +1,83 @@
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(#000000, #0b0b23);
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Add random small stars */
+body::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+    z-index: 0;
+}
+
+#score {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 8px 15px;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid #ffffff;
+    z-index: 2;
+}
+
+#gameArea {
+    height: 550px;
+    width: 700px;
+    background: linear-gradient(to bottom, #000000, #111111);
+    position: relative;
+    overflow: hidden;
+    margin: 20px auto;
+    border: 2px solid #ffffff;
+    border-radius: 20px;
+    z-index: 1;
+}
+
+#pausedMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 28px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px 30px;
+    border-radius: 10px;
+    display: none;
+    z-index: 3;
+    animation: blink 1.5s infinite;
+}
+
+#rocket {
+    height: 50px;
+    width: 50px;
+    background: url('Rocket.png') no-repeat center/contain;
+    position: absolute;
+    bottom: 10px;
+    left: 325px;
+    transition: left 0.2s ease;
+    z-index: 2;
+}
+
+.asteroid {
+    height: 40px;
+    width: 40px;
+    background: url('asteroid.png') no-repeat center/contain;
+    position: absolute;
+    z-index: 2;
+}
