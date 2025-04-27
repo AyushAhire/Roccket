@@ -2,6 +2,9 @@
 
 Welcome to the **Rocket Firing Game**, a fun browser-based game where you control a rocket to avoid asteroids while firing projectiles to destroy them! The game has simple mechanics: move left or right to avoid obstacles and shoot to destroy them. The goal is to stay alive and accumulate the highest score possible.
 
+![Screenshot from 2025-04-28 00-31-51](https://github.com/user-attachments/assets/a1527d0c-2b14-4a17-9716-373992e3c3f8)
+
+
 ## Features:
 - 🚀 **Rocket Control**: Move your rocket left or right using the arrow keys.
 - 💥 **Asteroids**: Avoid falling asteroids that will end the game if they collide with your rocket.
