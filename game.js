@@ -22,6 +22,10 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight' && left < 450) {
         rocket.style.left = (left + 20) + 'px';
     }
+
+    if (e.key === ' ' || e.key === 'Spacebar') {
+        createProjectile();
+    }
 });
 
 function createAsteroid() {
@@ -71,10 +75,64 @@ function checkCollision(asteroid) {
     }
 }
 
+function createProjectile() {
+    if (paused) return;
+
+    const gamearea = document.getElementById('gameArea');
+    const rocket = document.getElementById('rocket');
+    const projectile = document.createElement('div');
+    projectile.classList.add('projectile');
+
+    let rocketLeft = parseInt(window.getComputedStyle(rocket).left);
+    projectile.style.left = (rocketLeft + 22) + 'px'; // Center the projectile over the rocket
+    projectile.style.bottom = '60px'; // Position just above the rocket
+    projectile.style.width = '5px'; // Width of projectile
+    projectile.style.height = '15px'; // Height of projectile
+    projectile.style.backgroundColor = 'yellow'; // Make projectile visible
+    projectile.style.position = 'absolute'; // Set absolute positioning for movement
+    gamearea.appendChild(projectile);
+
+    moveProjectile(projectile);
+}
+
+function moveProjectile(projectile) {
+    if (paused) return;
+
+    let bottom = 60;
+    const interval = setInterval(() => {
+        if (bottom > 550) { // if projectile reaches top of screen, remove it
+            projectile.remove();
+            clearInterval(interval);
+        } else {
+            bottom += 5; // Move projectile up
+            projectile.style.bottom = bottom + 'px';
+
+            checkProjectileCollision(projectile, interval);
+        }
+    }, 10);
+}
+
+function checkProjectileCollision(projectile, interval) {
+    const asteroids = document.querySelectorAll('.asteroid');
+
+    asteroids.forEach(asteroid => {
+        const projRect = projectile.getBoundingClientRect();
+        const astRect = asteroid.getBoundingClientRect();
+        if (projRect.left < astRect.right && projRect.right > astRect.left && projRect.top < astRect.bottom && projRect.bottom > astRect.top) {
+            asteroid.remove();
+            projectile.remove();
+            clearInterval(interval);
+            score += 5; // Increase score for hit
+            document.getElementById('score').innerText = 'Score: ' + score;
+        }
+    })
+}
+
+
 function updateScore() {
     if (paused) return;
     score++;
     document.getElementById('score').innerText = 'Score: ' + score;
 }
 
-setInterval(createAsteroid, 1000);
+setInterval(createAsteroid, 500);  // Create a new asteroid every second
